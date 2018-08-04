@@ -253,7 +253,14 @@ public class RequestHandler implements Runnable {
 	public void handleHTTPSRequest(String urlString){
 
 		System.out.println("handleHTTPSRequest\n\n");
-        String url = urlString.substring(15);
+
+        URL aURL = null;
+        try {
+            aURL = new URL(urlString);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
 
 		/*String Connect = "CONNECT";
 		int l1 = urlString.indexOf(Connect);
@@ -264,13 +271,17 @@ public class RequestHandler implements Runnable {
 		//String url = urlString.substring(7);
 
         //ToDo
+
         */
 
+		String url = aURL.getHost();
+		int port = aURL.getPort();
+        /*String url = urlString.substring(7);
 		//url.trim();
 		url = url.trim();
 		String pieces[] = url.split(":");
 		url = pieces[0];
-		int port  = Integer.valueOf(pieces[1]);
+		int port  = Integer.valueOf(pieces[1]);*/
 
 		try{
 			// Only first line of HTTPS request has been read at this point (CONNECT *)

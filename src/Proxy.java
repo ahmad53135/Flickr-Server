@@ -216,6 +216,8 @@ public class Proxy implements Runnable {
 			}
 			catch (Exception e){
 
+                System.out.println("Exception:"+e);
+
             }
 			/*catch (SocketException e) {
 				// Socket exception is triggered by management system to shut down the proxy 
