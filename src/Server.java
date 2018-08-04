@@ -33,8 +33,8 @@ public class Server {
 
     private static int localport = 8415;
 
-    public static String downloadedImagesFromFlickr = "/home/prg/Desktop/Flickr_Server_v2.0/Image/flickrImages/";
-    private static String uploadedImagesFromServer = "/home/prg/Desktop/Flickr_Server_v2.0/Image/webImages/";
+    public static String downloadedImagesFromFlickr = "./Image/flickrImages/";
+    private static String uploadedImagesFromServer = "./Image/webImages/";
 
     public static double maxBytePerImage = 10350;
 
@@ -51,7 +51,7 @@ public class Server {
     public static void main(String[] args) throws IOException, FlickrException {
 
         HttpDownloadUtility httpDownloadUtility = new HttpDownloadUtility();
-        HttpDownloadUtility.downloadFile("https://www.cnn.com/", "/home/prg/Desktop/webpages/123");
+        //HttpDownloadUtility.downloadFile("https://www.cnn.com/", "/home/prg/Desktop/webpages/123");
         Proxy myProxy = new Proxy(8515);
         //Socket server = new Socket("localhost",8515);
         myProxy.listen();

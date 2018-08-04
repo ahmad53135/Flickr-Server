@@ -119,7 +119,7 @@ public class Proxy implements Runnable {
 			try {
 				// serverSocket.accpet() Blocks until a connection is made
 				//Socket socket = serverSocket.accept();
-                Socket socket = new Socket();
+                Socket socket = new Socket("localhost",8515);
 
 
 
@@ -187,13 +187,16 @@ public class Proxy implements Runnable {
                             urlString = Request.substring(0, newLinePos);
                             //int tt =
                             int secondLinePos = Request.indexOf(Server.endMessageString, newLinePos + Server.endMessageString.length());
-                            Server.serverBuffer = Request.substring(newLinePos + Server.endMessageString.length(), secondLinePos);
-                            Server.serverBufferByte = new byte[secondLinePos - (newLinePos + Server.endMessageString.length())];
-                            for (int i = 0; i < secondLinePos - (newLinePos + Server.endMessageString.length()); i++) {
-                                Server.serverBufferByte[i] = msg[(newLinePos + Server.endMessageString.length()) + i];
+                            if (secondLinePos > 0) {
+                                Server.serverBuffer = Request.substring(newLinePos + Server.endMessageString.length(), secondLinePos);
+                                Server.serverBufferByte = new byte[secondLinePos - (newLinePos + Server.endMessageString.length())];
+                                for (int i = 0; i < secondLinePos - (newLinePos + Server.endMessageString.length()); i++) {
+                                    Server.serverBufferByte[i] = msg[(newLinePos + Server.endMessageString.length()) + i];
+                                }
                             }
                         }
                     }catch (Exception e){
+                        System.out.println("EXception: " + e);
 
                     }
                 }

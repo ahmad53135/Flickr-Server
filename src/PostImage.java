@@ -14,7 +14,7 @@ import com.splunk.SSLSecurityProtocol;
 public class PostImage {
     private HttpsURLConnection conn;
     private String imageName;
-    private int sleepTime = 00; //miliseconds
+    private int sleepTime = 200; //miliseconds
     private String url;
     private String imagePath;
     private String ticket;
@@ -40,10 +40,10 @@ public class PostImage {
         this.imagePath=imagePath;
 
         HttpService.setSslSecurityProtocol( SSLSecurityProtocol.TLSv1_2 );
-        /*System.setProperty("http.proxyHost", "127.0.0.1");
+        System.setProperty("http.proxyHost", "127.0.0.1");
         System.setProperty("http.proxyPort", "8080");
         System.setProperty("https.proxyHost","127.0.0.1");
-        System.setProperty("https.proxyPort", "8080");*/
+        System.setProperty("https.proxyPort", "8080");
 
 //        URL oracle = new URL("http://www.varzesh3.com/");
 //        URLConnection yc = oracle.openConnection();
@@ -157,10 +157,10 @@ public class PostImage {
 
 
         HttpService.setSslSecurityProtocol( SSLSecurityProtocol.TLSv1_2 );
-        /*System.setProperty("http.proxyHost", "127.0.0.1");
+        System.setProperty("http.proxyHost", "127.0.0.1");
         System.setProperty("http.proxyPort", "8080");
         System.setProperty("https.proxyHost","127.0.0.1");
-        System.setProperty("https.proxyPort", "8080");*/
+        System.setProperty("https.proxyPort", "8080");
 
         String geturl = "https://up.flickr.com/photos/upload/process/"+i;
 
@@ -223,10 +223,10 @@ public class PostImage {
 
     public void getOKS(String tickets, String fails, String oks,String i) throws IOException, InterruptedException {
         HttpService.setSslSecurityProtocol( SSLSecurityProtocol.TLSv1_2 );
-        /*System.setProperty("http.proxyHost", "127.0.0.1");
+        System.setProperty("http.proxyHost", "127.0.0.1");
         System.setProperty("http.proxyPort", "8080");
         System.setProperty("https.proxyHost","127.0.0.1");
-        System.setProperty("https.proxyPort", "8080");*/
+        System.setProperty("https.proxyPort", "8080");
 
         String geturl = "https://www.flickr.com/photos_upload_rs_check.gne?oks="+oks+"&fails="+fails+"&tickets="+tickets;
 
@@ -281,10 +281,10 @@ public class PostImage {
         String crlf = "\r\n";
 
         HttpService.setSslSecurityProtocol( SSLSecurityProtocol.TLSv1_2 );
-        /*System.setProperty("http.proxyHost", "127.0.0.1");
+        System.setProperty("http.proxyHost", "127.0.0.1");
         System.setProperty("http.proxyPort", "8080");
         System.setProperty("https.proxyHost","127.0.0.1");
-        System.setProperty("https.proxyPort", "8080");*/
+        System.setProperty("https.proxyPort", "8080");
 
         System.out.println("getImageID---------------------------------");
 
@@ -370,10 +370,10 @@ public class PostImage {
         String crlf = "\r\n";
 
         HttpService.setSslSecurityProtocol( SSLSecurityProtocol.TLSv1_2 );
-        /*System.setProperty("http.proxyHost", "127.0.0.1");
+        System.setProperty("http.proxyHost", "127.0.0.1");
         System.setProperty("http.proxyPort", "8080");
         System.setProperty("https.proxyHost","127.0.0.1");
-        System.setProperty("https.proxyPort", "8080");*/
+        System.setProperty("https.proxyPort", "8080");
 
         String postUrl = "https://www.flickr.com/photos/upload/edit";
         URL obj = new URL(postUrl);
@@ -448,10 +448,10 @@ public class PostImage {
         //this.imagePath=imagePath;
 
         HttpService.setSslSecurityProtocol( SSLSecurityProtocol.TLSv1_2 );
-        /*System.setProperty("http.proxyHost", "127.0.0.1");
+        System.setProperty("http.proxyHost", "127.0.0.1");
         System.setProperty("http.proxyPort", "8080");
         System.setProperty("https.proxyHost","127.0.0.1");
-        System.setProperty("https.proxyPort", "8080");*/
+        System.setProperty("https.proxyPort", "8080");
 
 //        URL oracle = new URL("http://www.varzesh3.com/");
 //        URLConnection yc = oracle.openConnection();

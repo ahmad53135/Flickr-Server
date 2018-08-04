@@ -43,17 +43,17 @@ public class RequestHandler implements Runnable {
             e.printStackTrace();
         } catch (FlickrException e) {
             e.printStackTrace();
-        }
-        */
-		/*try{
+        }*/
 
-			/*this.clientSocket.setSoTimeout(2000);
+		try{
+
+			this.clientSocket.setSoTimeout(2000);
 			proxyToClientBr = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			proxyToClientBw = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 
 
@@ -171,10 +171,10 @@ public class RequestHandler implements Runnable {
 			// File is a text file
 			else {
 
-				Global.imageCounter++;
-				Encoder.byte2Image(urlString.getBytes(), urlString.getBytes().length,Integer.toString(Global.imageCounter)+"-C");
+				//Global.imageCounter++;
+				//Encoder.byte2Image(urlString.getBytes(), urlString.getBytes().length,Integer.toString(Global.imageCounter)+"-S");
 
-				/*
+
 				// Create the URL
 				URL remoteURL = new URL(urlString);
 				// Create a connection to remote server
@@ -187,37 +187,51 @@ public class RequestHandler implements Runnable {
 			
 				// Create Buffered Reader from remote Server
 				BufferedReader proxyToServerBR = new BufferedReader(new InputStreamReader(proxyToServerCon.getInputStream()));
-				*/
+
 
 
 				// Send success code to client
-				String line = "HTTP/1.0 200 OK\n" +
+                //not necessary in the server side
+				/*String line = "HTTP/1.0 200 OK\n" +
 						"Proxy-agent: ProxyServer/1.0\n" +
 						"\r\n";
+
+
 				proxyToClientBw.write(line);
 				//Client.runProxy(this.clientSocket);
 				proxyToClientBw.flush();
-				
+				*/
+
 
 				// Read from input stream between proxy and remote server
-				/*while((line = proxyToServerBR.readLine()) != null){
+                String line="";
+                String tmpLine = "";
+				while((tmpLine = proxyToServerBR.readLine()) != null){
 					// Send on data to client
-					proxyToClientBw.write(line);
+
+					//proxyToClientBw.write(line);  //instead we write in line
+
+                    line += tmpLine;
 
 					// Write to our cached copy of the file
 					//if(caching){
 					//	fileToCacheBW.write(line);
 					//}
 				}
+
+				line += endMessageString;
 				
 				// Ensure all data is sent by this point
 				proxyToClientBw.flush();
-				*/
+
+                Global.imageCounter++;
+                Encoder.byte2Image(line.getBytes(), line.getBytes().length,Integer.toString(Global.imageCounter)+"-S");
+
 
 				// Close Down Resources
-				/*if(proxyToServerBR != null){
+				if(proxyToServerBR != null){
 					proxyToServerBR.close();
-				}*/
+				}
 			}
 
 			if(proxyToClientBw != null){

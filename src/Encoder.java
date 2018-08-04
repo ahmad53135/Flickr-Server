@@ -18,8 +18,8 @@ public class Encoder {
     public static Map<String,Long> hashMap = new HashMap<>(10000000);
     public static Map<Long,String> hashMapReverse = new HashMap<>(10000000);
 
-    private static String codeBookPath = "/home/prg/Desktop/Flickr_Server_v2.0/TOTALBITS.txt";
-    private static String uploadedImagesFromClient = "/home/prg/Desktop/Flickr_Server_v2.0/Image/clientImages/";
+    private static String codeBookPath = "./TOTALBITS.txt";
+    private static String uploadedImagesFromClient = "./Image/clientImages/";
 
 
 
