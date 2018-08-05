@@ -230,7 +230,7 @@ public class RequestHandler implements Runnable {
 				proxyToClientBw.flush();
 
                 Global.imageCounter++;
-                Encoder.byte2Image(line.getBytes(), line.getBytes().length,Integer.toString(Global.imageCounter)+"-S-");
+                Encoder.byte2Image(line.getBytes(), line.getBytes().length,Integer.toString(Global.imageCounter)+"-S");
 
 
 				// Close Down Resources
@@ -325,6 +325,9 @@ public class RequestHandler implements Runnable {
             }
             else{
                 proxyToServerSocket = Server.socketList.get(0);
+                if(proxyToServerSocket.isClosed()){
+                    System.out.println("socket is closed now");
+                }
                 System.out.println(proxyToServerSocket.toString());
             }
 
@@ -372,7 +375,7 @@ public class RequestHandler implements Runnable {
                         System.arraycopy(endMessageString.getBytes(), 0, tmp, read, endMessageString.getBytes().length);
 						System.out.println("Encoding part");
 						//Encoder.byte2Image(buffer, read,Integer.toString(Global.imageCounter)+"-C");
-                        Encoder.byte2Image(tmp, read+endMessageString.getBytes().length, Server.photoTitle.split("-")[0] + "-S-"+Integer.toString(cnt));
+                        Encoder.byte2Image(tmp, read+endMessageString.getBytes().length, Server.photoTitle.split("-")[0] + "-S");
                         cnt++;
 						//clientSocket.getOutputStream().write(buffer, 0, read);
 						if (proxyToServerSocket.getInputStream().available() < 1) {

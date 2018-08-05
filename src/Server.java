@@ -54,6 +54,11 @@ public class Server {
 
         HttpDownloadUtility httpDownloadUtility = new HttpDownloadUtility();
         //HttpDownloadUtility.downloadFile("https://www.cnn.com/", "/home/prg/Desktop/webpages/123");
+        if(Encoder.hashMap.isEmpty()) {
+            System.out.println("start Loading list");
+            Encoder.load2List();
+            System.out.println("List loaded!");
+        }
         Proxy myProxy = new Proxy(8515);
         //Socket server = new Socket("localhost",8515);
         myProxy.listen();
@@ -76,7 +81,11 @@ public class Server {
 
 
 
-        //Encoder.load2List();
+        if(Encoder.hashMap.isEmpty()) {
+            System.out.println("start Loading list");
+            Encoder.load2List();
+            System.out.println("List loaded!");
+        }
 //        ServerSocket ss = new ServerSocket(localport);
 
 //        int size = ss.getReceiveBufferSize();
