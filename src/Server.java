@@ -23,6 +23,8 @@ import java.util.List;
 
 public class Server {
 
+    public static List<Socket> socketList = new ArrayList<>();
+
     public static String apiKey ="a4b2a5ed04bb6bee75ba4d989d175d22";
     public static String sharedSecret = "a1fe6dce56b3404c";
     public static String photoSetID = "72157695761376345";

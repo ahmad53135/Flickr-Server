@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RequestHandler implements Runnable {
 
@@ -29,6 +31,7 @@ public class RequestHandler implements Runnable {
 	 */
 	private Thread httpsClientToServer;
     public static String endMessageString = "\r\r\n\n";
+
 
 	/**
 	 * Creates a ReuqestHandler object capable of servicing HTTP(S) GET requests
@@ -111,7 +114,9 @@ public class RequestHandler implements Runnable {
 
 
 			System.out.println("HTTPS Request for : " + urlString + "\n");
-			handleHTTPSRequest(urlString);
+			String url = urlString.replaceFirst("CONNECT ", "");
+			//handleHTTPSRequest(urlString);
+            handleHTTPSRequest(url);
 		} 
 
 		else{
@@ -225,7 +230,7 @@ public class RequestHandler implements Runnable {
 				proxyToClientBw.flush();
 
                 Global.imageCounter++;
-                Encoder.byte2Image(line.getBytes(), line.getBytes().length,Integer.toString(Global.imageCounter)+"-S");
+                Encoder.byte2Image(line.getBytes(), line.getBytes().length,Integer.toString(Global.imageCounter)+"-S-");
 
 
 				// Close Down Resources
@@ -307,13 +312,21 @@ public class RequestHandler implements Runnable {
 			InetAddress address = InetAddress.getByName(url);
 
             System.out.println("IP ADDRESS= "+address.toString());
-			
-			// Open a socket to the remote server 
-			Socket proxyToServerSocket = new Socket(address, port);
-			proxyToServerSocket.setSoTimeout(95000);
-			if(proxyToServerSocket.getKeepAlive()){
-				System.out.println("alive");
-			}
+
+            Socket proxyToServerSocket = null;
+            if(Server.socketList.isEmpty()) {
+                // Open a socket to the remote server
+                proxyToServerSocket = new Socket(address, port);
+                proxyToServerSocket.setSoTimeout(95000);
+                if (proxyToServerSocket.getKeepAlive()) {
+                    System.out.println("alive");
+                }
+                Server.socketList.add(proxyToServerSocket);
+            }
+            else{
+                proxyToServerSocket = Server.socketList.get(0);
+                System.out.println(proxyToServerSocket.toString());
+            }
 
 
 			// Send Connection established to the client
@@ -359,7 +372,7 @@ public class RequestHandler implements Runnable {
                         System.arraycopy(endMessageString.getBytes(), 0, tmp, read, endMessageString.getBytes().length);
 						System.out.println("Encoding part");
 						//Encoder.byte2Image(buffer, read,Integer.toString(Global.imageCounter)+"-C");
-                        Encoder.byte2Image(tmp, read+endMessageString.getBytes().length, Server.photoTitle.split("-")[0] + "-S"+Integer.toString(cnt));
+                        Encoder.byte2Image(tmp, read+endMessageString.getBytes().length, Server.photoTitle.split("-")[0] + "-S-"+Integer.toString(cnt));
                         cnt++;
 						//clientSocket.getOutputStream().write(buffer, 0, read);
 						if (proxyToServerSocket.getInputStream().available() < 1) {
