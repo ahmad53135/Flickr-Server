@@ -23,6 +23,8 @@ import java.util.List;
 
 public class Server {
 
+    //TOTO
+    //connections should be based on their hashname in the list
     public static List<Socket> socketList = new ArrayList<>();
 
     public static String apiKey ="a4b2a5ed04bb6bee75ba4d989d175d22";
@@ -67,7 +69,6 @@ public class Server {
     }
 
     public static void runServer() throws IOException, FlickrException {
-
 
 
 

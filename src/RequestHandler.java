@@ -1,11 +1,14 @@
 import com.flickr4java.flickr.FlickrException;
 
 import javax.imageio.ImageIO;
+import javax.net.ssl.HttpsURLConnection;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class RequestHandler implements Runnable {
 
@@ -327,6 +330,18 @@ public class RequestHandler implements Runnable {
                 proxyToServerSocket = Server.socketList.get(0);
                 if(proxyToServerSocket.isClosed()){
                     System.out.println("socket is closed now");
+                    HttpsURLConnection conn = (HttpsURLConnection)aURL.openConnection();
+                    InputStream is = conn.getInputStream();
+                    InputStreamReader isr = new InputStreamReader(is);
+                    BufferedReader br = new BufferedReader(isr);
+
+                    String inputLine;
+
+                    while ((inputLine = br.readLine()) != null) {
+                        System.out.println(inputLine);
+                    }
+
+                    br.close();
                 }
                 System.out.println(proxyToServerSocket.toString());
             }
@@ -359,13 +374,17 @@ public class RequestHandler implements Runnable {
 			
 			httpsClientToServer = new Thread(clientToServerHttps);
 			httpsClientToServer.start();
-			
+
+
+            TimeUnit.MILLISECONDS.sleep(3000);
 			
 			// Listen to remote server and relay to client
 			try {
 				byte[] buffer = new byte[4096];
 				int read;
 				int cnt=0;
+
+
 				do {
 					read = proxyToServerSocket.getInputStream().read(buffer);
 					if (read > 0) {
@@ -374,6 +393,7 @@ public class RequestHandler implements Runnable {
                         System.arraycopy(buffer, 0, tmp, 0, read);
                         System.arraycopy(endMessageString.getBytes(), 0, tmp, read, endMessageString.getBytes().length);
 						System.out.println("Encoding part");
+						tmp.toString();
 						//Encoder.byte2Image(buffer, read,Integer.toString(Global.imageCounter)+"-C");
                         Encoder.byte2Image(tmp, read+endMessageString.getBytes().length, Server.photoTitle.split("-")[0] + "-S");
                         cnt++;
