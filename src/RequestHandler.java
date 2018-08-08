@@ -380,7 +380,7 @@ public class RequestHandler implements Runnable {
 			
 			// Listen to remote server and relay to client
 			try {
-				byte[] buffer = new byte[4096];
+				byte[] buffer = new byte[10000];     //TODO was 4096
 				int read;
 				int cnt=0;
 
